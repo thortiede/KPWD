@@ -10,7 +10,8 @@ If you are not an academic user belonging to an academic institution please cont
 # Building the image
 After cloing the repository you can build the image with:
 
-```docker build -t downloadkeggpathways .
+```
+docker build -t downloadkeggpathways .
 ```
 
 # Running the container
@@ -20,24 +21,28 @@ The other is the location of the config files used by the python script.
 
 Find an example call below; please edit to your preferences and system:
 
-```docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config downloadkeggpathways
+```
+docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config downloadkeggpathways
 ```
 
 # Configuring the logger
 To change the logging behaviour during execution use the file
 
-```config/logging-config.ini
+```
+config/logging-config.ini
 ```
 
 Please refer to the official documentation for instructions.
 Most notably you might want to enable DEBUG output by changing the line
 
-```level=INFO
+```
+level=INFO
 ```
 
 to
 
-```level=DEBUG
+```
+level=DEBUG
 ```
 
 in case of errors.
@@ -85,7 +90,8 @@ This tool comes without any warranties. Use at your own risk, I cannot be made l
 ## KEGG API Restriction
 Just to be safe I will repeat the KEGG restriction here which applies to your use of this software:
 
-```Restriction:
+```
+Restriction:
 KEGG API is provided for academic use by academic users belonging to academic institutions.
 ```
 For more details please visit the KEGG website at [https://www.kegg.jp/kegg/rest/]

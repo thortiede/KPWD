@@ -1,0 +1,5 @@
+asyncio
+aiofiles
+aiohttp
+nest_asyncio
+configparser

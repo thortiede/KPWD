@@ -1,6 +1,7 @@
 # About
 This repository builds a pyhthon:3.8-slim based docker container running the script in the folder src
-This script reads in the ini-files in the config folder and then proceeds to download pathway maps from the KEGG API
+This script reads in the ini-files in the config folder and then proceeds to download pathway maps from the KEGG API.
+
 The KEGG API has the following Restriction:
 
 > KEGG API is provided for academic use by academic users belonging to academic institutions.
@@ -11,7 +12,7 @@ If you are not an academic user belonging to an academic institution please cont
 After cloing the repository you can build the image with:
 
 ```
-docker build -t downloadkeggpathways .
+docker build -t kpwd .
 ```
 
 # Running the container
@@ -19,10 +20,10 @@ To run the container you need to have two local directories ready to be mounted 
 One of the directories is used to store the downloaded kgml files.
 The other is the location of the config files used by the python script.
 
-Find an example call below; please edit to your preferences and system:
+Please find an example call below; edit to your preferences and system:
 
 ```
-docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config downloadkeggpathways
+docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config kpwd
 ```
 
 # Configuring the logger
@@ -48,7 +49,7 @@ level=DEBUG
 in case of errors.
 
 # Configuring the downloader
-To change the behaviour of the downloaded use the file
+To change the behaviour of the downloader use the file
 
 > config/keggdownload-config.ini
 
@@ -85,7 +86,7 @@ but you change it if you need to use a different folder in the container.
 If you omit this setting, the default `/data` will be used.
 
 ## No warranties
-This tool comes without any warranties. Use at your own risk, I cannot be made liable for any damage to your hard- or software and to any breach of license you might infringe when using this program without a KEGG license. See below.
+This tool comes without any warranties. Use at your own risk, I cannot be made liable for any damage to your hard- or software when using this program and to any breach of license you might infringe when using this program without a KEGG license. See below.
 
 ## KEGG API Restriction
 Just to be safe I will repeat the KEGG restriction here which applies to your use of this software:

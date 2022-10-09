@@ -58,10 +58,49 @@ The following sections are available
 ## kegg_api
 Change the content to be downloaded
 
-### topic
-This defines the search term used when querying the `find` endpoint of the API. An example is:
+### action
+The way KPWD handles the input is controlled by the 
 
-> cancer
+> action
+
+config option.
+It takes one of the following arguments:
+
+#### all
+
+The config setting
+
+> action= all
+
+will attempt to download all pathway maps on the index.
+WARNING: This will download more than 200 pathways!
+
+#### search
+If 
+
+> action= search
+
+the first paramter to the python script (or the docker run command) will act as a search term for the KEGG pathways and will match all pathways, whose name contains the given search term.
+
+
+#### list
+This enables to provide a list of pathway map ids (including organsim code, or ``map'' prefix) in the ``map_ids'' option.
+Example:
+
+	action= list
+	map_ids= hsa05200,05223
+
+#### file
+This treats the first parameter to the python script as a file name in the config folder that contains the pathway ids that should be downloaded.
+
+> action= file
+
+#### command-line
+With
+
+> action=command-line
+
+the arguments to the python script will be treated as pathway id that are attempted to be downloaded.
 
 ### orgCode
 Give a three letter organism code to download the maps for this organism. To get the maps for homo sapiens use:
@@ -69,9 +108,6 @@ Give a three letter organism code to download the maps for this organism. To get
 > hsa
 
 If omitted the references maps are fetched.
-
-### map_ids
-This is intended to download the listed ids only. This will be made available at a later time.
 
 ## container_env
 Here you can configure the environment of your specific container setup.

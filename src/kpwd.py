@@ -65,10 +65,7 @@ def extract_pw_list_from_file(filename:str, orgCode:str) -> list:
     list_of_ids = []
     with open("{}/{}".format(configFolder, filename), "r") as f:
         for l in f.readlines():
-            line_id = l.strip()
-            if line_id[0].isdigit():
-                line_id = orgCode + line_id
-            list_of_ids.append(line_id)
+            list_of_ids.append(l.strip())
     return list_of_ids
 
 def fetch_pw(pw:str) -> str:
@@ -85,8 +82,10 @@ def save_pathway(file_prefix, file_content, output_folder) -> None:
     f.close()
     logger.debug("Saved file {}.xml in folder {}".format(file_prefix, output_folder))
 
-def fetch_kegg_pw_maps(pw_list:list, output_folder:str) -> int:
+def fetch_kegg_pw_maps(pw_list:list, output_folder:str, orgCode:str) -> int:
     for pw in pw_list:
+        if pw[0].isdigit():
+            pw = orgCode + pw
         kgml_content = fetch_pw(pw)
         save_pathway(pw, kgml_content, output_folder)
     return 0
@@ -149,7 +148,7 @@ if __name__ == "__main__":
         sys.exit("Cannot perform action '{}'".format(action))
 
     # Now fetch the pathways in the pathway list
-    fetch_kegg_pw_maps(pw_list, output_folder)
+    fetch_kegg_pw_maps(pw_list, output_folder, orgCode)
 
     sys.exit(0)
 

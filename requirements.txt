@@ -1,5 +1,2 @@
-asyncio
-aiofiles
-aiohttp
-nest_asyncio
+urllib3
 configparser

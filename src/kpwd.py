@@ -13,7 +13,6 @@
 #*
 
 import sys
-import json
 import logging
 from logging.config import fileConfig
 import configparser
@@ -21,9 +20,6 @@ from datetime import datetime as dt
 from datetime import timezone as tz
 
 from urllib3 import PoolManager
-from urllib3 import Timeout
-from urllib3 import Retry
-from urllib.parse import urlencode
 
 # # Initialize logging system
 configFolder = "/config"

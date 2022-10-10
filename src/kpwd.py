@@ -17,6 +17,8 @@ import json
 import logging
 from logging.config import fileConfig
 import configparser
+from datetime import datetime as dt
+from datetime import timezone as tz
 
 from urllib3 import PoolManager
 from urllib3 import Timeout
@@ -77,11 +79,26 @@ def fetch_pw(pw:str) -> str:
     return response.data.decode()
 
 def save_pathway(file_prefix, file_content, output_folder) -> None:
-    f = open("{}{}.xml".format(output_folder, file_prefix), "w")
+    pathway_file_path = "{}{}.xml".format(output_folder, file_prefix)
+    f = open(pathway_file_path, "w")
     f.write(file_content)
     f.close()
     logger.debug("Saved file {}.xml in folder {}".format(file_prefix, output_folder))
-
+    with open (pathway_file_path, "r") as pw:
+        for line in pw:
+            if line.startswith("<!-- Creation date:"):
+                file_create_date = line.split("--")[1].strip()
+                with open("{}{}.xml.meta".format(output_folder, file_prefix), "w") as meta:
+                    logger.debug(f"Writing meta file with date: {file_create_date}")
+                    meta.write(f"{file_create_date}\n")
+                    # get current time
+                    current_time = dt.now(tz.utc)
+                    # Jul 24, 2017 13:17:58 +0900 (GMT+9)
+                    timestamp = current_time.strftime("%b %d, %Y %H:%M:%S %z (%Z)")
+                    meta.write(f"Download date: {timestamp}\n")
+                logger.debug("Saved metadata file {}.xml.meta in folder {}".format(file_prefix, output_folder))
+                return
+        
 def fetch_kegg_pw_maps(pw_list:list, output_folder:str, orgCode:str) -> int:
     for pw in pw_list:
         if pw[0].isdigit():
@@ -144,7 +161,7 @@ if __name__ == "__main__":
         for i in range(1,len(sys.argv)):
             pw_list.append(sys.argv[i])
     else:
-        logger.error("No viable action configured. Possible values are ['all', 'search', 'list']. Value found was:'{}'".format(action))
+        logger.error("No viable action configured. Possible values are ['all', 'search', 'list', 'commandline']. Value found was:'{}'".format(action))
         sys.exit("Cannot perform action '{}'".format(action))
 
     # Now fetch the pathways in the pathway list

@@ -95,10 +95,10 @@ This treats the first parameter to the python script as a file name in the confi
 
 > action= file
 
-#### command-line
+#### commandline
 With
 
-> action=command-line
+> action=commandline
 
 the arguments to the python script will be treated as pathway id that are attempted to be downloaded.
 

@@ -23,7 +23,7 @@ The other is the location of the config files used by the python script.
 Please find an example call below; edit to your preferences and system:
 
 ```
-docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config kpwd
+docker run -it --volume=${PWD}/data:/data --volume=${PWD}/config:/config kpwd examples/example.ids
 ```
 
 # Configuring the logger
